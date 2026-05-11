@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { City } from '../../models/city.model';
 import { CityService } from '../../services/city.service';
 import { CityCreateComponent } from '../city-create/city-create.component';
@@ -8,7 +8,7 @@ import { CityDetailComponent } from '../city-detail/city-detail.component';
 @Component({
   selector: 'app-city-list',
   standalone: true,
-  imports: [CommonModule, CityCreateComponent, CityDetailComponent],
+  imports: [CityCreateComponent, CityDetailComponent],
   templateUrl: './city-list.component.html'
 })
 export class CityListComponent implements OnInit {

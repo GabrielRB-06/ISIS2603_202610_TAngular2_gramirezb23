@@ -6,11 +6,12 @@
     </button>
   </div>
 
-  <app-city-create
-    *ngIf="showCreateForm"
-    (cityCreated)="onCityCreated()"
-    (cancel)="showCreateForm = false">
-  </app-city-create>
+  @if (showCreateForm) {
+    <app-city-create
+      (cityCreated)="onCityCreated()"
+      (cancel)="showCreateForm = false">
+    </app-city-create>
+  }
 
   <table class="table table-striped table-hover mt-3">
     <thead class="table-dark">
@@ -22,18 +23,22 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let city of cities">
-        <td>{{ city.id }}</td>
-        <td>{{ city.name }}</td>
-        <td>{{ city.country.name }}</td>
-        <td>
-          <button class="btn btn-sm btn-outline-secondary" (click)="onSelectCity(city)">
-            Ver Detalle
-          </button>
-        </td>
-      </tr>
+      @for (city of cities; track city) {
+        <tr>
+          <td>{{ city.id }}</td>
+          <td>{{ city.name }}</td>
+          <td>{{ city.country.name }}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-secondary" (click)="onSelectCity(city)">
+              Ver Detalle
+            </button>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 
-  <app-city-detail *ngIf="selectedCity" [city]="selectedCity"></app-city-detail>
+  @if (selectedCity) {
+    <app-city-detail [city]="selectedCity"></app-city-detail>
+  }
 </div>
