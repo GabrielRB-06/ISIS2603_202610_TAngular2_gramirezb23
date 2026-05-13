@@ -10,11 +10,12 @@ import { WeatherDetail } from '../models/weather.model';
 })
 export class WeatherService {
   private readonly API_KEY = environment.weatherApiKey;
+  private readonly baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   getWeather(cityName: string): Observable<WeatherDetail> {
-    const url = `https://api.weatherapi.com/v1/current.json?key=${this.API_KEY}&q=${cityName}`;
+    const url = `${this.baseUrl}/current.json?key=${this.API_KEY}&q=${encodeURIComponent(cityName)}`;
 
     return this.http.get<any>(url).pipe(
       map((res) => ({
