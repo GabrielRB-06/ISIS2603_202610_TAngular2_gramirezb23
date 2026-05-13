@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { City } from '../../models/city.model';
 import { WeatherRecord } from '../../models/weather-record.model';
 import { WeatherRecordService } from '../../services/weather-record.service';
+import { WeatherService } from '../../services/weather.service';
+import { WeatherDetail } from '../../models/weather.model';
+
 
 /*
  * Implementar:
@@ -18,10 +21,13 @@ import { WeatherRecordService } from '../../services/weather-record.service';
 })
 export class CityDetailComponent implements OnChanges {
   private weatherRecordService = inject(WeatherRecordService);
+  private weatherService = inject(WeatherService);
 
   @Input() city!: City;
 
   weatherRecords: WeatherRecord[] = [];
+  weatherDetail: WeatherDetail | null = null;
+  loading: boolean = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['city'] && this.city) {
