@@ -2,20 +2,34 @@
   <div class="card-header">
     <h5 class="mb-0">Detalle de Ciudad — {{ city.name }}, {{ city.country.name }}</h5>
   </div>
+
+  <!-- Cargando...-->
   <div class="card-body">
 
-    <!-- TODO HU-03: Muestra un spinner mientras se carga el clima (usa la propiedad loading) -->
-     
+    @if (loading) {
+      <div class="d-flex justify-content-center my-3">
+        <div class="spinner-border" role="status" aria-label="Cargando clima">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    }
 
-    <!-- TODO HU-03: Muestra los datos de clima cuando estén disponibles:
-    - Temperatura: weatherDetail.temp_c °C
-    - Condición: weatherDetail.condition
-    - Humedad: weatherDetail.humidity %
-    -->
+     <!-- Mostrar la informacion del clima-->
+    @if (!loading && weatherDetail) {
+      <dl class="row mb-0">
+        <dt class="col-sm-4">Temperatura</dt>
+        <dd class="col-sm-8">{{ weatherDetail.temp_c }} °C</dd>
 
-    <!-- TODO HU-03: Muestra un mensaje "No hay datos de clima disponibles" cuando no haya datos -->
+        <dt class="col-sm-4">Condición</dt>
+        <dd class="col-sm-8">{{ weatherDetail.condition }}</dd>
 
-    <p class="text-muted mb-0">Clima no disponible.</p>
+        <dt class="col-sm-4">Humedad</dt>
+        <dd class="col-sm-8">{{ weatherDetail.humidity }} %</dd>
+      </dl>
+       <!-- Texto en caso de que no carguen los datos-->
+    } @else if (!loading) {
+      <p class="text-muted mb-0">No hay datos de clima disponibles.</p>
+    }
 
   </div>
 </div>
