@@ -31,6 +31,11 @@ export class CityDetailComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['city'] && this.city) {
+      this.loading = true;
+      this.weatherService.getWeather(this.city.name).subscribe(detail => {
+        this.weatherDetail = detail;
+        this.loading = false;
+      });
       this.weatherRecordService.getRecords(this.city.id)
         .subscribe(records => this.weatherRecords = records);
 
